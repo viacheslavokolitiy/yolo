@@ -1,34 +1,25 @@
 package org.satorysoft.yolo;
 
 import org.junit.Test;
-import org.satorysoft.yolo.mocks.MockApp;
-import org.satorysoft.yolo.mocks.MockService;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 import org.satorysoft.yolo.util.LastFmRequestInterceptor;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class APIUnitTest {
 
-    @Test
-    public void test_retrofit_adapter_exist() throws Exception {
-        MockApp mockApp = new MockApp();
-        assertNotNull(mockApp.getMockedRetrofit());
-    }
-
-    @Test
-    public void test_rest_factory_creation() throws Exception {
-        MockApp mockApp = new MockApp();
-
-        Retrofit retrofit = mockApp.getMockedRetrofit();
-        assertNotNull(retrofit);
-
-        MockService service = retrofit.create(MockService.class);
-
-        assertNotNull(service);
-    }
+    @Mock
+    App application;
 
     @Test
     public void test_request_interceptor() throws Exception {
@@ -41,5 +32,17 @@ public class APIUnitTest {
                 .client(defaultHttpClient).build();
 
         assertNotNull(retrofit);
+    }
+
+    @Test
+    public void test_retrofit_injection() throws Exception {
+        when(application.getRetrofit())
+                .then(new Answer<String>() {
+                    @Override
+                    public String answer(InvocationOnMock invocation) throws Throwable {
+                        assertNotNull(application.getRetrofit().baseUrl());
+                        return application.getRetrofit().baseUrl().encodedQuery();
+                    }
+                });
     }
 }

@@ -29,8 +29,7 @@ public class App extends Application {
                 builder()
                 .aPIModule(new APIModule(ENDPOINT))
                 .appModule(new AppModule())
-                .build()
-                .inject(this);
+                .build().inject(this);
     }
 
     public static App getAppInstance(){
