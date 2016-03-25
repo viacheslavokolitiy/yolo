@@ -1,3 +1,0 @@
-/*
- * Last FM Api package
- */

@@ -10,9 +10,6 @@ import javax.inject.Inject;
 
 import retrofit2.Retrofit;
 
-/**
- * Created by vokol on 25.03.2016.
- */
 public class App extends Application {
 
     private static App instance;
@@ -23,6 +20,7 @@ public class App extends Application {
     protected Retrofit retrofit;
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onCreate() {
         super.onCreate();
         instance = this;
