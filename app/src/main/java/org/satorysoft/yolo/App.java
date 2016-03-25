@@ -14,7 +14,7 @@ public class App extends Application {
 
     private static App instance;
 
-    private static final String ENDPOINT = "http://ws.audioscrobbler.com/2.0";
+    public static final String ENDPOINT = "http://ws.audioscrobbler.com/2.0/";
 
     @Inject
     protected Retrofit retrofit;
