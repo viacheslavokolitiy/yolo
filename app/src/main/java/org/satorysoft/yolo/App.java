@@ -3,8 +3,8 @@ package org.satorysoft.yolo;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
-import org.satorysoft.yolo.di.component.APIComponent;
-import org.satorysoft.yolo.di.component.DaggerAPIComponent;
+import org.satorysoft.yolo.di.component.AppComponent;
+import org.satorysoft.yolo.di.component.DaggerAppComponent;
 import org.satorysoft.yolo.di.module.APIModule;
 import org.satorysoft.yolo.di.module.AppModule;
 
@@ -18,8 +18,10 @@ public class App extends Application {
 
     public static final String ENDPOINT = "http://ws.audioscrobbler.com/2.0/";
 
-    @Inject
+    @SuppressWarnings("NullableProblems")
+    @Inject @NonNull
     protected Retrofit retrofit;
+    private AppComponent component;
 
     @Override
     @SuppressWarnings("deprecation")
@@ -27,23 +29,25 @@ public class App extends Application {
         super.onCreate();
         instance = this;
 
-        APIComponent component = buildDaggerComponent().build();
+        component = buildDaggerComponent().build();
         component.inject(this);
     }
 
-    public static App getAppInstance(){
+    @NonNull
+    public static App getAppInstance() {
         return instance;
     }
 
     @NonNull
-    protected DaggerAPIComponent.Builder buildDaggerComponent(){
-        return DaggerAPIComponent.
+    protected DaggerAppComponent.Builder buildDaggerComponent() {
+        return DaggerAppComponent.
                 builder()
                 .aPIModule(new APIModule(ENDPOINT))
                 .appModule(new AppModule());
     }
 
-    public Retrofit getRetrofit(){
-        return retrofit;
+    @NonNull
+    public AppComponent getComponent() {
+        return component;
     }
 }

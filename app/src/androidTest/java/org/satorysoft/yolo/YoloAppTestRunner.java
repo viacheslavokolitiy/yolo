@@ -5,9 +5,6 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnitRunner;
 
-/**
- * Created by vokol on 28.03.2016.
- */
 public class YoloAppTestRunner extends AndroidJUnitRunner {
 
     @Override
