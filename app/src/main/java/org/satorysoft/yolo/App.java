@@ -1,7 +1,9 @@
 package org.satorysoft.yolo;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 
+import org.satorysoft.yolo.di.component.APIComponent;
 import org.satorysoft.yolo.di.component.DaggerAPIComponent;
 import org.satorysoft.yolo.di.module.APIModule;
 import org.satorysoft.yolo.di.module.AppModule;
@@ -25,15 +27,20 @@ public class App extends Application {
         super.onCreate();
         instance = this;
 
-        DaggerAPIComponent.
-                builder()
-                .aPIModule(new APIModule(ENDPOINT))
-                .appModule(new AppModule())
-                .build().inject(this);
+        APIComponent component = buildDaggerComponent().build();
+        component.inject(this);
     }
 
     public static App getAppInstance(){
         return instance;
+    }
+
+    @NonNull
+    protected DaggerAPIComponent.Builder buildDaggerComponent(){
+        return DaggerAPIComponent.
+                builder()
+                .aPIModule(new APIModule(ENDPOINT))
+                .appModule(new AppModule());
     }
 
     public Retrofit getRetrofit(){
