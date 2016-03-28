@@ -2,6 +2,7 @@ package org.satorysoft.yolo;
 
 import android.support.annotation.NonNull;
 
+import org.satorysoft.yolo.di.component.AppComponent;
 import org.satorysoft.yolo.di.component.DaggerAppComponent;
 import org.satorysoft.yolo.di.module.APIModule;
 import org.satorysoft.yolo.di.module.AppModule;
@@ -18,5 +19,11 @@ public class YoloMockApp extends App {
         return super.buildDaggerComponent()
                 .appModule(new AppModule())
                 .aPIModule(new APIModule(App.ENDPOINT));
+    }
+
+    @NonNull
+    @Override
+    public AppComponent getComponent() {
+        return super.getComponent();
     }
 }
