@@ -14,9 +14,16 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testCoverageEnabled true
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testCoverageEnabled true
         }
     }
 
@@ -28,6 +35,22 @@ android {
         disable 'InvalidPackage' // Okio references java.nio that does not presented in Android SDK.
     }
 
+    sourceSets {
+        // Unit tests live in src/test.
+        test.java.srcDir 'src/test/java'
+
+        // Integration tests live in src/integrationTest.
+        test.java.srcDir 'src/integrationTests/java'
+
+        // Unit tests for debug build type specific code live in src/debugUnitTest.
+        testDebug.java.srcDir 'src/debugUnitTests/java'
+
+        // Unit tests for release build type specific code live in src/releaseUnitTest.
+        testRelease.java.srcDir 'src/releaseUnitTests/java'
+
+        // Functional tests live in src/functionalTests.
+        androidTest.java.srcDir 'src/androidTest/java'
+    }
 }
 
 dependencies {
