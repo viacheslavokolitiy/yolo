@@ -90,7 +90,7 @@ public class APIModule {
     }
 
     @NonNull
-    private Retrofit buildRetrofitAdapter() {
+    public Retrofit buildRetrofitAdapter() {
         OkHttpClient defaultHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new LastFmRequestInterceptor()).build();
 

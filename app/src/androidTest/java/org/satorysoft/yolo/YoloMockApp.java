@@ -7,23 +7,28 @@ import org.satorysoft.yolo.di.component.DaggerAppComponent;
 import org.satorysoft.yolo.di.module.APIModule;
 import org.satorysoft.yolo.di.module.AppModule;
 
-
-/**
- * Created by vokol on 28.03.2016.
- */
 public class YoloMockApp extends App {
+    private DaggerAppComponent.Builder builder;
+    private AppComponent component;
 
     @NonNull
     @Override
     protected DaggerAppComponent.Builder buildDaggerComponent() {
-        return super.buildDaggerComponent()
+        builder = super.buildDaggerComponent()
                 .appModule(new AppModule())
                 .aPIModule(new APIModule(App.ENDPOINT));
-    }
 
-    @NonNull
-    @Override
-    public AppComponent getComponent() {
-        return super.getComponent();
+        component = builder.build();
+        component.inject(this);
+        component.lastFmAlbumAPI();
+        component.lastFmArtistAPI();
+        component.lastFmChartAPI();
+        component.lastFmGeoApi();
+        component.lastFmUserApi();
+        component.lastFmLibraryApi();
+        component.lastFmTagApi();
+        component.lastFmTrackApi();
+
+        return builder;
     }
 }
