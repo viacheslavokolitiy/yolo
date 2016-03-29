@@ -34,6 +34,7 @@ android {
 
         disable 'GoogleAppIndexingWarning' // App does not have deep linking.
         disable 'InvalidPackage' // Okio references java.nio that does not presented in Android SDK.
+        disable 'Overdraw'
     }
 
     sourceSets {
