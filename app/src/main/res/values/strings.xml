@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Yolo</string>
+    <string name="empty" />
+    <string name="hint_username">Username</string>
+    <string name="sign_in">Sign in</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_sign_in">Sign in</string>
     <!-- DO NOT STORE IT IN PRODUCTION BUILDS. -->
     <!--<string name="last_fm_api_key">e041e9a00fbcb8acf3fa71a7711b9c0c</string>
     <string name="last_fm_shard_secret">cbdd8c9a8fbb599f33e8aa882882ee1a</string>-->

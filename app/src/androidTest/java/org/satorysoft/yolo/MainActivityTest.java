@@ -1,14 +1,17 @@
 package org.satorysoft.yolo;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.app.Instrumentation;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.test.ActivityInstrumentationTestCase2;
 import android.text.TextUtils;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import org.satorysoft.yolo.ui.fragments.SignUpFragment;
 
 import butterknife.ButterKnife;
 
@@ -43,8 +46,8 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
         if(TextUtils.isEmpty(PreferenceManager.getDefaultSharedPreferences(mainActivity)
                 .getString("USER_TOKEN", null))){
-            FragmentTransaction transaction = mainActivity.getFragmentManager().beginTransaction();
-            transaction.add(R.id.fragment_container, MockSignupFragment.newInstance());
+            FragmentTransaction transaction = mainActivity.getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.fragment_container, SignUpFragment.newInstance());
             transaction.commit();
 
             try {
@@ -60,7 +63,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
             LinearLayout view = ButterKnife.findById(mainActivity, R.id.fragment_container);
             assertNotNull(view);
 
-            LinearLayout root = (LinearLayout) view.findViewById(R.id.fragment_sign_up_root);
+            RelativeLayout root = (RelativeLayout) view.findViewById(R.id.fragment_sign_up_root);
             assertNotNull(root);
         } else {
             fail();
