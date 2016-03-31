@@ -1,14 +1,10 @@
 package org.satorysoft.yolo;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.app.Instrumentation;
 import android.content.Intent;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.test.ActivityInstrumentationTestCase2;
-import android.text.TextUtils;
-import android.widget.LinearLayout;
 
 import butterknife.ButterKnife;
 
@@ -36,36 +32,5 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
 
         instrumentation.removeMonitor(monitor);
-    }
-
-    public void test_launch_for_new_user() throws Exception {
-        final MainActivity mainActivity = launchActivity("org.satorysoft.yolo", MainActivity.class, null);
-
-        if(TextUtils.isEmpty(PreferenceManager.getDefaultSharedPreferences(mainActivity)
-                .getString("USER_TOKEN", null))){
-            FragmentTransaction transaction = mainActivity.getFragmentManager().beginTransaction();
-            transaction.add(R.id.fragment_container, MockSignupFragment.newInstance());
-            transaction.commit();
-
-            try {
-                runTestOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mainActivity.getFragmentManager().executePendingTransactions();
-                    }
-                });
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
-            LinearLayout view = ButterKnife.findById(mainActivity, R.id.fragment_container);
-            assertNotNull(view);
-
-            LinearLayout root = (LinearLayout) view.findViewById(R.id.fragment_sign_up_root);
-            assertNotNull(root);
-        } else {
-            fail();
-
-            mainActivity.finish();
-        }
     }
 }
