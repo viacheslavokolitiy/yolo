@@ -83,20 +83,17 @@ public class LastFMArtistAPITest extends TestCase {
         Assert.assertNotNull(artistResponses);
         Assert.assertTrue(artistResponses.size() > 0);
 
-        Artist ar1 = artistResponses.get(0).getArtist();
-        Artist ar2 = artistResponses.get(0).getArtist();
-        assertTrue(ar1.equals(ar2));
-        assertTrue(ar1.hashCode() == ar2.hashCode());
+        Artist artist = artistResponses.get(0).getArtist();
 
-        assertNotNull(ar1.getArtistBio());
-        assertNotNull(ar1.getMbid());
-        assertNotNull(ar1.getArtistTags());
-        assertNotNull(ar1.getArtistStats());
-        assertNotNull(ar1.getArtistName());
-        assertNotNull(ar1.getUrl());
-        assertNotNull(ar1.getArtistImage());
-        assertNotNull(ar1.isStreamable());
-        assertNotNull(ar1.isOnTour());
-        assertNotNull(ar1.getSimilarArtists());
+        assertNotNull(artist.getArtistBio());
+        assertNotNull(artist.getMbid());
+        assertNotNull(artist.getArtistTags());
+        assertNotNull(artist.getArtistStats());
+        assertNotNull(artist.getArtistName());
+        assertNotNull(artist.getUrl());
+        assertNotNull(artist.getArtistImage());
+        assertNotNull(artist.isStreamable());
+        assertNotNull(artist.isOnTour());
+        assertNotNull(artist.getSimilarArtists());
     }
 }
