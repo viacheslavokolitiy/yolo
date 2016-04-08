@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.satorysoft.yolo.api.LastFMArtistAPI;
+import org.satorysoft.yolo.api.model.artist.Artist;
 import org.satorysoft.yolo.api.response.ArtistResponse;
 import org.satorysoft.yolo.util.LastFmRequestInterceptor;
 
@@ -81,5 +82,21 @@ public class LastFMArtistAPITest extends TestCase {
         List<ArtistResponse> artistResponses = testSubscriber.getOnNextEvents();
         Assert.assertNotNull(artistResponses);
         Assert.assertTrue(artistResponses.size() > 0);
+
+        Artist ar1 = artistResponses.get(0).getArtist();
+        Artist ar2 = artistResponses.get(0).getArtist();
+        assertTrue(ar1.equals(ar2));
+        assertTrue(ar1.hashCode() == ar2.hashCode());
+
+        assertNotNull(ar1.getArtistBio());
+        assertNotNull(ar1.getMbid());
+        assertNotNull(ar1.getArtistTags());
+        assertNotNull(ar1.getArtistStats());
+        assertNotNull(ar1.getArtistName());
+        assertNotNull(ar1.getUrl());
+        assertNotNull(ar1.getArtistImage());
+        assertNotNull(ar1.isStreamable());
+        assertNotNull(ar1.isOnTour());
+        assertNotNull(ar1.getSimilarArtists());
     }
 }

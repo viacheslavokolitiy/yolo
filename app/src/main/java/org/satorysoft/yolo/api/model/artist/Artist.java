@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import org.satorysoft.yolo.api.model.Tag;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class Artist {
     @SerializedName("name")
