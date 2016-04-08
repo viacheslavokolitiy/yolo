@@ -1,8 +1,12 @@
 package org.satorysoft.yolo;
 
+import junit.framework.TestCase;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.satorysoft.yolo.api.LastFMArtistAPI;
 import org.satorysoft.yolo.util.LastFmRequestInterceptor;
 
@@ -11,12 +15,18 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LastFMArtistAPITest {
+@RunWith(MockitoJUnitRunner.class)
+public class LastFMArtistAPITest extends TestCase {
     private LastFMArtistAPI artistAPI;
     private Retrofit retrofit;
 
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
+
     @Before
-    public void before_init(){
+    public void beforeEach(){
         OkHttpClient defaultHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new LastFmRequestInterceptor()).build();
 
