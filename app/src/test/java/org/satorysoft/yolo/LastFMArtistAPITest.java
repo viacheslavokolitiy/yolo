@@ -8,12 +8,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.satorysoft.yolo.api.LastFMArtistAPI;
+import org.satorysoft.yolo.api.response.ArtistResponse;
 import org.satorysoft.yolo.util.LastFmRequestInterceptor;
+
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.Scheduler;
+import rx.observers.TestSubscriber;
+import rx.plugins.RxJavaPlugins;
+import rx.schedulers.Schedulers;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LastFMArtistAPITest extends TestCase {
@@ -34,8 +42,8 @@ public class LastFMArtistAPITest extends TestCase {
                 .Builder()
                 .baseUrl(App.ENDPOINT)
                 .client(defaultHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
         artistAPI = retrofit.create(LastFMArtistAPI.class);
@@ -49,5 +57,29 @@ public class LastFMArtistAPITest extends TestCase {
     @Test
     public void artist_api_service_should_be_created() throws Exception {
         Assert.assertNotNull(artistAPI);
+    }
+
+    @Test
+    public void artist_api_should_return_artist_info() throws Exception {
+        Assert.assertNotNull(retrofit);
+        Assert.assertNotNull(artistAPI);
+
+        final RxJavaPlugins rxJavaPlugins = RxJavaPlugins.getInstance();
+        rxJavaPlugins.registerSchedulersHook(new RxJavaSchedulersHookExt(){
+            @Override
+            public Scheduler getIOScheduler() {
+                return Schedulers.immediate();
+            }
+        });
+
+        final Observable<ArtistResponse> artistObservable = artistAPI.artistInfo("Queen").asObservable();
+        final TestSubscriber<ArtistResponse> testSubscriber = new TestSubscriber<>();
+
+        artistObservable.subscribe(testSubscriber);
+
+        testSubscriber.assertNoErrors();
+        List<ArtistResponse> artistResponses = testSubscriber.getOnNextEvents();
+        Assert.assertNotNull(artistResponses);
+        Assert.assertTrue(artistResponses.size() > 0);
     }
 }
