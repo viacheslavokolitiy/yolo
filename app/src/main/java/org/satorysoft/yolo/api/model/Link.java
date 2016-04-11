@@ -2,7 +2,7 @@ package org.satorysoft.yolo.api.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Link {
+public final class Link {
     @SerializedName("#text")
     private String linkText;
     @SerializedName("rel")

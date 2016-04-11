@@ -2,7 +2,7 @@ package org.satorysoft.yolo.api.model.artist;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ArtistStats {
+public final class ArtistStats {
     @SerializedName("listeners")
     private String listeners;
     @SerializedName("playcount")

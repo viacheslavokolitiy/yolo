@@ -6,7 +6,7 @@ import org.satorysoft.yolo.api.model.Tag;
 
 import java.util.Arrays;
 
-public class Artist {
+public final class Artist {
     @SerializedName("name")
     private String artistName;
     @SerializedName("mbid")

@@ -2,7 +2,7 @@ package org.satorysoft.yolo.api.model.artist;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ArtistImage {
+public final class ArtistImage {
     @SerializedName("#text")
     private String text;
     @SerializedName("size")

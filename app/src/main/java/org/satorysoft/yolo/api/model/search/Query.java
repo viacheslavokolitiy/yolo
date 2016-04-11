@@ -2,7 +2,7 @@ package org.satorysoft.yolo.api.model.search;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Query {
+public final class Query {
     @SerializedName("#text")
     private String queryText;
     @SerializedName("role")
@@ -18,16 +18,32 @@ public class Query {
         return queryText;
     }
 
+    public void setQueryText(String queryText) {
+        this.queryText = queryText;
+    }
+
     public String getQueryRole() {
         return queryRole;
+    }
+
+    public void setQueryRole(String queryRole) {
+        this.queryRole = queryRole;
     }
 
     public String getQuerySearchTerms() {
         return querySearchTerms;
     }
 
+    public void setQuerySearchTerms(String querySearchTerms) {
+        this.querySearchTerms = querySearchTerms;
+    }
+
     public int getStartPage() {
         return startPage;
+    }
+
+    public void setStartPage(int startPage) {
+        this.startPage = startPage;
     }
 
     @Override

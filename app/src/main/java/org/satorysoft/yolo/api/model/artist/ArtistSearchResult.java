@@ -6,7 +6,7 @@ import org.satorysoft.yolo.api.model.search.ArtistMatches;
 import org.satorysoft.yolo.api.model.search.Query;
 import org.satorysoft.yolo.api.model.search.SearchAttribute;
 
-public class ArtistSearchResult {
+public final class ArtistSearchResult {
 
     @SerializedName("opensearch:Query")
     private Query openSearchQuery;
@@ -27,24 +27,48 @@ public class ArtistSearchResult {
         return openSearchQuery;
     }
 
+    public void setOpenSearchQuery(Query openSearchQuery) {
+        this.openSearchQuery = openSearchQuery;
+    }
+
     public int getTotalResults() {
         return totalResults;
+    }
+
+    public void setTotalResults(int totalResults) {
+        this.totalResults = totalResults;
     }
 
     public int getStartIndex() {
         return startIndex;
     }
 
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+
     public int getItemsPerPage() {
         return itemsPerPage;
+    }
+
+    public void setItemsPerPage(int itemsPerPage) {
+        this.itemsPerPage = itemsPerPage;
     }
 
     public ArtistMatches getArtistMatches() {
         return artistMatches;
     }
 
+    public void setArtistMatches(ArtistMatches artistMatches) {
+        this.artistMatches = artistMatches;
+    }
+
     public SearchAttribute getSearchAttribute() {
         return searchAttribute;
+    }
+
+    public void setSearchAttribute(SearchAttribute searchAttribute) {
+        this.searchAttribute = searchAttribute;
     }
 
     @Override

@@ -2,7 +2,7 @@ package org.satorysoft.yolo.api.model.search;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SearchAttribute {
+public final class SearchAttribute {
     @SerializedName("for")
     private String searchFor;
 
@@ -10,6 +10,10 @@ public class SearchAttribute {
 
     public String getSearchFor() {
         return searchFor;
+    }
+
+    public void setSearchFor(String searchFor) {
+        this.searchFor = searchFor;
     }
 
     @Override

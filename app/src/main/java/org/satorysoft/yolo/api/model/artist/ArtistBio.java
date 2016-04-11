@@ -6,7 +6,7 @@ import org.satorysoft.yolo.api.model.Link;
 
 import java.util.Date;
 
-public class ArtistBio {
+public final class ArtistBio {
     @SerializedName("links")
     private Link bioLinks;
     @SerializedName("published")

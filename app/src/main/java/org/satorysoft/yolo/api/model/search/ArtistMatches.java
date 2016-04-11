@@ -6,7 +6,7 @@ import org.satorysoft.yolo.api.model.artist.Artist;
 
 import java.util.Arrays;
 
-public class ArtistMatches {
+public final class ArtistMatches {
 
     @SerializedName("artist")
     private Artist[] artist;
@@ -15,6 +15,10 @@ public class ArtistMatches {
 
     public Artist[] getArtist() {
         return artist;
+    }
+
+    public void setArtist(Artist[] artist) {
+        this.artist = artist;
     }
 
     @Override

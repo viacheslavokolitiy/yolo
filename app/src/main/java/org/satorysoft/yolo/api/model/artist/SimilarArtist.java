@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Arrays;
 
-public class SimilarArtist {
+public final class SimilarArtist {
     @SerializedName("name")
     private String artistName;
     @SerializedName("url")

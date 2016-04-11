@@ -87,4 +87,5 @@ dependencies {
     testCompile 'io.reactivex:rxjava:1.1.2'
     testCompile 'io.reactivex:rxandroid:1.1.0'
     testCompile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
+    testCompile 'nl.jqno.equalsverifier:equalsverifier:2.0.2'
 }

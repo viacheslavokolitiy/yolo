@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.satorysoft.yolo.api.model.artist.ArtistSearchResult;
 
-public class ArtistSearchResponse {
+public final class ArtistSearchResponse {
 
     @SerializedName("results")
     private ArtistSearchResult artistSearchResult;
