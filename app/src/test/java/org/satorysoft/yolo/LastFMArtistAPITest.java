@@ -9,7 +9,9 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.satorysoft.yolo.api.LastFMArtistAPI;
 import org.satorysoft.yolo.api.model.artist.Artist;
+import org.satorysoft.yolo.api.model.artist.ArtistSearchResult;
 import org.satorysoft.yolo.api.response.ArtistResponse;
+import org.satorysoft.yolo.api.response.ArtistSearchResponse;
 import org.satorysoft.yolo.util.LastFmRequestInterceptor;
 
 import java.util.List;
@@ -20,8 +22,9 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Scheduler;
+import rx.android.plugins.RxAndroidPlugins;
+import rx.android.plugins.RxAndroidSchedulersHook;
 import rx.observers.TestSubscriber;
-import rx.plugins.RxJavaPlugins;
 import rx.schedulers.Schedulers;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -65,10 +68,10 @@ public class LastFMArtistAPITest extends TestCase {
         Assert.assertNotNull(retrofit);
         Assert.assertNotNull(artistAPI);
 
-        final RxJavaPlugins rxJavaPlugins = RxJavaPlugins.getInstance();
-        rxJavaPlugins.registerSchedulersHook(new RxJavaSchedulersHookExt(){
+        final RxAndroidPlugins rxAndroidPlugins = RxAndroidPlugins.getInstance();
+        rxAndroidPlugins.registerSchedulersHook(new RxAndroidSchedulersHook(){
             @Override
-            public Scheduler getIOScheduler() {
+            public Scheduler getMainThreadScheduler() {
                 return Schedulers.immediate();
             }
         });
@@ -79,11 +82,14 @@ public class LastFMArtistAPITest extends TestCase {
         artistObservable.subscribe(testSubscriber);
 
         testSubscriber.assertNoErrors();
+
         List<ArtistResponse> artistResponses = testSubscriber.getOnNextEvents();
         Assert.assertNotNull(artistResponses);
         Assert.assertTrue(artistResponses.size() > 0);
 
         Artist artist = artistResponses.get(0).getArtist();
+
+        Assert.assertNotNull(artist);
 
         assertNotNull(artist.getArtistBio());
         assertNotNull(artist.getMbid());
@@ -95,5 +101,46 @@ public class LastFMArtistAPITest extends TestCase {
         assertNotNull(artist.isStreamable());
         assertNotNull(artist.isOnTour());
         assertNotNull(artist.getSimilarArtists());
+
+        RxAndroidPlugins.getInstance().reset();
+    }
+
+    @Test
+    public void artist_api_should_return_artist_matches() throws Exception {
+        Assert.assertNotNull(retrofit);
+        Assert.assertNotNull(artistAPI);
+
+        final RxAndroidPlugins rxAndroidPlugins = RxAndroidPlugins.getInstance();
+        rxAndroidPlugins.registerSchedulersHook(new RxAndroidSchedulersHook(){
+            @Override
+            public Scheduler getMainThreadScheduler() {
+                return Schedulers.immediate();
+            }
+        });
+
+        final Observable<ArtistSearchResponse> artistResponseObservable =
+                artistAPI.getArtistMatch("Queen").asObservable();
+        final TestSubscriber<ArtistSearchResponse> subscriber = new TestSubscriber<>();
+
+        artistResponseObservable.subscribe(subscriber);
+
+        subscriber.assertNoErrors();
+
+        List<ArtistSearchResponse> artistResponses = subscriber.getOnNextEvents();
+        Assert.assertNotNull(artistResponses);
+        Assert.assertTrue(artistResponses.size() > 0);
+
+        ArtistSearchResult result = artistResponses.get(0).getArtistSearchResult();
+
+        Assert.assertNotNull(result);
+
+        assertNotNull(result.getArtistMatches());
+        assertNotNull(result.getItemsPerPage());
+        assertNotNull(result.getOpenSearchQuery());
+        assertNotNull(result.getSearchAttribute());
+        assertNotNull(result.getStartIndex());
+        assertNotNull(result.getTotalResults());
+
+        RxAndroidPlugins.getInstance().reset();
     }
 }
