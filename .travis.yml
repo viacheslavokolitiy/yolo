@@ -30,6 +30,9 @@ script:
 after_success:
   - codecov
 
+after_failure:
+  - cat /home/travis/build/viacheslavokolitiy/yolo/app/build/outputs/lint-results-debug.xml
+
 notifications:
   email: true
 

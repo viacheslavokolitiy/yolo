@@ -20,14 +20,6 @@ public class YoloMockApp extends App {
 
         component = builder.build();
         component.inject(this);
-        component.lastFmAlbumAPI();
-        component.lastFmArtistAPI();
-        component.lastFmChartAPI();
-        component.lastFmGeoApi();
-        component.lastFmUserApi();
-        component.lastFmLibraryApi();
-        component.lastFmTagApi();
-        component.lastFmTrackApi();
 
         return builder;
     }
